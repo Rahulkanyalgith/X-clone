@@ -57,11 +57,11 @@ const sidebarMenuItems: XtwitterSidebarButton[] = [
 
 export default function Home() {
 
-  const handleLoginWithGoogle = useCallback((cred : CredentialResponse) => {
+  // const handleLoginWithGoogle = useCallback((cred : CredentialResponse) => {
     
     
 
-  } ,[])
+  // } ,[])
 
 
   return (
