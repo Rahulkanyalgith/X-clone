@@ -1,3 +1,5 @@
+"use client";
+
 import { FaXTwitter } from "react-icons/fa6";
 import { BiHomeAlt } from "react-icons/bi";
 import { FaSearch } from "react-icons/fa";
@@ -8,9 +10,10 @@ import { BiUser } from "react-icons/bi";
 import { CiCircleMore } from "react-icons/ci";
 import { TiGroup } from "react-icons/ti";
 
-
-
 import FeedCard from "@/components/FeedCard/page";
+import { GoogleLogin } from "@react-oauth/google";
+import { useCallback } from "react";
+import { log } from "console";
 
 interface XtwitterSidebarButton {
   title: string;
@@ -53,6 +56,14 @@ const sidebarMenuItems: XtwitterSidebarButton[] = [
 ];
 
 export default function Home() {
+
+  const handleLoginWithGoogle = useCallback((cred : CredentialResponse) => {
+    
+    
+
+  } ,[])
+
+
   return (
     <div>
       <div className="grid grid-cols-12 h-screen w-screen px-56">
@@ -72,24 +83,31 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-           <div className="mt-5 px-3">
-           <button className="bg-[#1D9BF0] font-semibold text-lg py-2 px-4 rounded-full w-full mt-4 ">Post</button>
-           </div>
+            <div className="mt-5 px-3">
+              <button className="bg-[#1D9BF0] font-semibold text-lg py-2 px-4 rounded-full w-full mt-4 ">
+                Post
+              </button>
+            </div>
           </div>
         </div>
         <div className="col-span-5 border-r-[1px] border-l-[1px] h-screen overflow-scroll border-gray-600">
-          <FeedCard/>
-          <FeedCard/>
-          <FeedCard/>
-          <FeedCard/>
-          <FeedCard/>
-          <FeedCard/>
-          <FeedCard/>
-          <FeedCard/>
-          <FeedCard/>
-          <FeedCard/>
+          <FeedCard />
+          <FeedCard />
+          <FeedCard />
+          <FeedCard />
+          <FeedCard />
+          <FeedCard />
+          <FeedCard />
+          <FeedCard />
+          <FeedCard />
+          <FeedCard />
         </div>
-        <div className="col-span-3"></div>
+        <div className="col-span-3">
+          <div className="p-5 bg-slate-700 rounded-lg">
+            <h1 className="my-2 text-2xl">New to X?</h1>
+            <GoogleLogin onSuccess={(cred) => console.log(cred)} />
+          </div>
+        </div>
       </div>
     </div>
   );
