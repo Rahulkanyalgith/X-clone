@@ -11,9 +11,11 @@ import { CiCircleMore } from "react-icons/ci";
 import { TiGroup } from "react-icons/ti";
 
 import FeedCard from "@/components/FeedCard/page";
-import { GoogleLogin } from "@react-oauth/google";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { useCallback } from "react";
-import { log } from "console";
+import toast from "react-hot-toast";
+import { verifyUserGoogleTokenQuery } from "@/graphql/query/user";
+import { grapghqlClient } from "@/clients/api";
 
 interface XtwitterSidebarButton {
   title: string;
@@ -56,13 +58,24 @@ const sidebarMenuItems: XtwitterSidebarButton[] = [
 ];
 
 export default function Home() {
+  const handleLoginWithGoogle = useCallback(
+    async (cred: CredentialResponse) => {
+      const googleToken = cred.credential;
+      
+      if (!googleToken) return toast.error(`google token not found`);
+      const { verifyGoogleToken } = await grapghqlClient.request(
+        verifyUserGoogleTokenQuery,
+        { token: googleToken }
+      );
 
-  // const handleLoginWithGoogle = useCallback((cred : CredentialResponse) => {
-    
-    
+      toast.success("verified success");
+      console.log(verifyGoogleToken);
 
-  // } ,[])
-
+      if (verifyGoogleToken)
+        window.localStorage.setItem("__X_token " , verifyGoogleToken )
+    },
+    []
+  );
 
   return (
     <div>
@@ -105,7 +118,7 @@ export default function Home() {
         <div className="col-span-3">
           <div className="p-5 bg-slate-700 rounded-lg">
             <h1 className="my-2 text-2xl">New to X?</h1>
-            <GoogleLogin onSuccess={(cred) => console.log(cred)} />
+            <GoogleLogin onSuccess={handleLoginWithGoogle} />
           </div>
         </div>
       </div>
