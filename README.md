@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+Hey Geeks,  the Gihub link for the X-Clone server -- https://github.com/Rahulkanyalgith/X-clone-Server
+
 First, run the development server:
 
 ```bash
